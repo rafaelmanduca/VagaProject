@@ -1,0 +1,42 @@
+﻿@using Estacionamento.Models
+@model IEnumerable<Vaga>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Bem Vindo a sua Vaga Online!</h1>
+    
+</div>
+
+
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Lista de Agendamentos</h1>
+
+    
+    <div class="d-flex justify-content-end mb-3">
+        <a href="adicionar_agendamento.html" class="btn btn-success">+ Novo Agendamento</a>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>@Html.DisplayNameFor(Model => Model.NumeroVaga)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Html.DisplayFor(ModelItem => item.NumeroVaga)</td>
+            </tr>
+        </tbody>
+
+    </table>
+
+    
+</div>
+
+
+
+
+
