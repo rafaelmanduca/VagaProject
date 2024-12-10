@@ -1,6 +1,6 @@
 ﻿namespace Estacionamento.Models
 {
-    public class Vaga
+    public class VagaEstacionamento
     {
         public int Id { get; set; }
         
@@ -16,12 +16,15 @@
 
 
 
-        public Vaga()
-        {
+        public VagaEstacionamento() { }
 
+        public VagaEstacionamento(int id,int numeroVaga)
+        {
+            Id = id;
+            NumeroVaga = numeroVaga;
         }
 
-        public Vaga(int id, int numeroVaga, string tipo, bool status, DateTime ocupacao, DateTime liberacao)
+        public VagaEstacionamento(int id, int numeroVaga, string tipo, bool status, DateTime ocupacao, DateTime liberacao)
         {
             Id = id;
             NumeroVaga = numeroVaga;

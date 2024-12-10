@@ -1,7 +1,26 @@
+using Estacionamento.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<EstacionamentoContext>(options =>
+{
+    options.UseMySql(
+        builder
+            .Configuration
+            .GetConnectionString("EstacionamentoContext"),
+        ServerVersion
+        .AutoDetect(
+            builder
+                .Configuration
+                .GetConnectionString("EstacionamentoContext")
+            ) 
+        );
+});
+
 
 var app = builder.Build();
 
