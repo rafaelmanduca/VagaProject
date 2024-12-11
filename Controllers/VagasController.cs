@@ -1,4 +1,6 @@
+using Estacionamento.Data;
 using Estacionamento.Models;
+using Estacionamento.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Vaga.Models;
@@ -9,24 +11,21 @@ namespace Vaga.Controllers
     {
         private readonly ILogger<VagasController> _logger;
 
-        public VagasController(ILogger<VagasController> logger)
+        private readonly VagaService _service;
+
+        public VagasController(ILogger<VagasController> logger, VagaService service)
         {
             _logger = logger;
+            _service = service;
         }
+        
+        
 
         public IActionResult Index()
         {
-            List<VagaEstacionamento> vagas = new List<VagaEstacionamento>
-            {
-                   new VagaEstacionamento(1,1,"Carro",true,DateTime.Now,DateTime.Now),
-                   new VagaEstacionamento(2,2,"Moto",false,DateTime.Now,DateTime.Now),
-                   new VagaEstacionamento(3,3,"Carro",true,DateTime.Now,DateTime.Now),
-                   new VagaEstacionamento(4,4,"Moto",true,DateTime.Now,DateTime.Now)
-                };
-               
-            var vagasDisponiveis = vagas.Where(x => x.Status).ToList();
             
-            return View(vagasDisponiveis);
+            List<VagaEstacionamento> vagas = _service.FindAll();
+            return View(vagas);
         }
 
         public IActionResult Cadastro(int id) 

@@ -1,8 +1,10 @@
 using Estacionamento.Data;
+using Estacionamento.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddScoped<VagaService>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

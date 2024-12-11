@@ -1,5 +1,6 @@
 ﻿using Estacionamento.Models;
 using Microsoft.EntityFrameworkCore;
+using Vaga.Controllers;
 
 namespace Estacionamento.Data
 {
@@ -11,5 +12,13 @@ namespace Estacionamento.Data
         }
 
         public DbSet<VagaEstacionamento> Vagas { get; set; }
+
+
+       
     }
+
+
+
+    
+
 }
