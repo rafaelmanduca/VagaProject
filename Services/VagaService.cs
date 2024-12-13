@@ -16,5 +16,17 @@ namespace Estacionamento.Services
         {
             return _context.Vagas.ToList();
         }
+
+        public void Add(VagaEstacionamento vaga)
+        {
+            _context.Vagas.Add(vaga);
+            _context.SaveChanges();
+        }
+
+        public void Insert(VagaEstacionamento vaga)
+        {
+            _context.Vagas.Add(vaga); // Adiciona a nova vaga
+            _context.SaveChanges(); // Salva as alterações no banco de dados
+        }
     }
 }

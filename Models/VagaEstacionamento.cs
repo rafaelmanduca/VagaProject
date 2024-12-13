@@ -1,11 +1,15 @@
-﻿namespace Estacionamento.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Estacionamento.Models
 {
     public class VagaEstacionamento
     {
         public int Id { get; set; }
-        
+
+        [Required(ErrorMessage = "O número da vaga é obrigatório.")]
         public int NumeroVaga { get; set; }
-  
+
+        [Required(ErrorMessage = "O tipo de vaga é obrigatório.")]
         public string Tipo { get; set; }
 
         public Boolean Status { get; set; }

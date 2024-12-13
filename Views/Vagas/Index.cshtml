@@ -6,15 +6,18 @@
 
 <div class="text-center">
     <h3 class="display-4">Bem-vindo a Vaga Online!</h3>
-    
 </div>
-
 
 <div class="container mt-5">
-    <h1 class="mb-4 text-center">Lista de Vagas Disponiveis</h1>
+    <h1 class="mb-4 text-center">Lista de Vagas Disponíveis</h1>
 
+    <!-- Botão para cadastrar uma nova vaga -->
+    <div class="text-end mb-4">
+        <a href="@Url.Action("Cadastro", "Vagas")" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Nova Vaga
+        </a>
+    </div>
 </div>
-
 
 <table class="table">
     <thead>
@@ -27,7 +30,7 @@
         {
             <tr>
                 <td>
-                    <a href="@Url.Action("Cadastro","Vagas", new{id = vaga.Id})">Vaga #@vaga.NumeroVaga</a>
+                    <a href="@Url.Action("Cadastro","Vagas", new { id = vaga.Id })">Vaga #@vaga.NumeroVaga</a>
                 </td>
             </tr>
         }

@@ -10,19 +10,36 @@
 </div>
 
 <div class="container mt-5">
-    <form asp-action="Index">
-        <div class="form-group">
-            <label for="Tipo">Tipo de Veículo</label>
-            <input type="text" class="form-control" id="Tipo" value="@Model.Tipo" />
+    <form asp-action="Cadastro" method="post">
+        <!-- Campo Tipo -->
+        <div class="form-group mb-3">
+            <label for="Tipo">Tipo de Vaga</label>
+            <select asp-for="Tipo" class="form-control">
+                <option value="Idoso">Idoso</option>
+                <option value="Cadeirante">Cadeirante</option>
+                <option value="Comum">Comum</option>
+            </select>
+
         </div>
-        <div class="form-group">
+
+        <!-- Campo Ocupação -->
+        <div class="form-group mb-3">
+            <label for="Ocupacao">Data e Hora de Ocupação</label>
+            <input type="datetime-local" class="form-control" id="Ocupacao" name="Ocupacao" value="@Model.Ocupacao.ToString("yyyy-MM-ddTHH:mm")" />
+        </div>
+
+        <!-- Campo Liberação -->
+        <div class="form-group mb-3">
+            <label for="Liberacao">Data e Hora de Liberação</label>
+            <input type="datetime-local" class="form-control" id="Liberacao" name="Liberacao" value="@Model.Liberacao.ToString("yyyy-MM-ddTHH:mm")" />
+        </div>
+
+        <!-- Campo Status -->
+        <div class="form-group mb-3">
             <label for="Status">Status</label>
-            <input type="checkbox" class="form-check-input" id="Status" @if (Model.Status)
-            {
-                <text>checked</text>
-            } />
+            <input type="checkbox" class="form-check-input" id="Status" name="Status" @(Model.Status ? "checked" : "") />
         </div>
+
         <button type="submit" class="btn btn-primary">Cadastrar</button>
     </form>
 </div>
-

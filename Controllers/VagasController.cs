@@ -27,10 +27,21 @@ namespace Vaga.Controllers
             List<VagaEstacionamento> vagas = _service.FindAll();
             return View(vagas);
         }
-
+        [HttpGet]
         public IActionResult Cadastro(int id) 
         {
             var vaga = new VagaEstacionamento (id, 0, "",true, DateTime.Now, DateTime.Now);
+            return View(vaga);
+        }
+
+        [HttpPost]
+        public IActionResult Cadastro(VagaEstacionamento vaga)
+        {
+            if (ModelState.IsValid) // Verifica se o modelo está válido
+            {
+                _service.Add(vaga); // Insere a vaga no banco de dados
+                return RedirectToAction(nameof(Index)); // Redireciona para a lista de vagas
+            }
             return View(vaga);
         }
 
