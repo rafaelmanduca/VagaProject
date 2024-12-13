@@ -1,43 +1,29 @@
-﻿@using Estacionamento.Models
-@model IEnumerable<VagaEstacionamento>
-@{
-    ViewData["Title"] = "Vagas Disponíveis";
-}
+﻿@model IEnumerable<Estacionamento.Models.VagaEstacionamento>
 
 <div class="text-center">
-    <h3 class="display-4">Bem-vindo a Vaga Online!</h3>
+    <h1 class="display-4">Vagas Cadastradas</h1>
 </div>
 
-<div class="container mt-5">
-    <h1 class="mb-4 text-center">Lista de Vagas Disponíveis</h1>
-
-    <!-- Botão para cadastrar uma nova vaga -->
-    <div class="text-end mb-4">
-        <a href="@Url.Action("Cadastro", "Vagas")" class="btn btn-success">
-            <i class="bi bi-plus-circle"></i> Nova Vaga
-        </a>
-    </div>
-</div>
-
-<table class="table">
+<table class="table table-striped text-end">
     <thead>
         <tr>
-            <th>Vagas</th>
+            <th>Número</th>
+            <th>Tipo</th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var vaga in Model)
         {
             <tr>
+                <td>@vaga.NumeroVaga</td>
+                <td>@vaga.Tipo</td>
                 <td>
-                    <a href="@Url.Action("Cadastro","Vagas", new { id = vaga.Id })">Vaga #@vaga.NumeroVaga</a>
+                    <a href="@Url.Action("Edit", "Vagas", new { id = vaga.Id })" class="btn btn-primary">Editar</a>
+                    <a href="@Url.Action("Details", "Vagas", new { id = vaga.Id })" class="btn btn-info">Detalhes</a>
+                    <a href="@Url.Action("Delete", "Vagas", new { id = vaga.Id })" class="btn btn-danger">Deletar</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-
-
-
-

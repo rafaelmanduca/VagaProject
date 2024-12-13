@@ -3,14 +3,12 @@ using Estacionamento.Models;
 using Estacionamento.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using Vaga.Models;
 
 namespace Vaga.Controllers
 {
     public class VagasController : Controller
     {
         private readonly ILogger<VagasController> _logger;
-
         private readonly VagaService _service;
 
         public VagasController(ILogger<VagasController> logger, VagaService service)
@@ -18,42 +16,98 @@ namespace Vaga.Controllers
             _logger = logger;
             _service = service;
         }
-        
-        
 
         public IActionResult Index()
         {
-            
             List<VagaEstacionamento> vagas = _service.FindAll();
+            if (vagas == null || !vagas.Any())
+            {
+                ViewBag.Mensagem = "Nenhuma vaga cadastrada.";
+            }
             return View(vagas);
         }
-        [HttpGet]
-        public IActionResult Cadastro(int id) 
-        {
-            var vaga = new VagaEstacionamento (id, 0, "",true, DateTime.Now, DateTime.Now);
-            return View(vaga);
-        }
+
+
+        
 
         [HttpPost]
         public IActionResult Cadastro(VagaEstacionamento vaga)
         {
-            if (ModelState.IsValid) // Verifica se o modelo está válido
+            if (ModelState.IsValid)
             {
-                _service.Add(vaga); // Insere a vaga no banco de dados
-                return RedirectToAction(nameof(Index)); // Redireciona para a lista de vagas
+                _service.Add(vaga);
+                return RedirectToAction(nameof(Index));
+            }
+            var vagasExistentes = _service.FindAll().Select(v => v.NumeroVaga).ToList();
+            ViewBag.NumerosDisponiveis = Enumerable.Range(1, 20).Except(vagasExistentes).ToList();
+            return View(vaga);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var vaga = _service.FindById(id);
+            if (vaga == null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Vaga não encontrada" });
             }
             return View(vaga);
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public IActionResult Edit(VagaEstacionamento vaga)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                _service.Update(vaga);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(vaga);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+
+        [HttpGet]
+        public IActionResult Delete(int id)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var vaga = _service.FindById(id);
+            if (vaga == null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Vaga não encontrada" });
+            }
+            return View(vaga);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteConfirm(int id)
+        {
+            var vaga = _service.FindById(id);
+            if (vaga == null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Vaga não encontrada" });
+            }
+
+            _service.Remove(vaga);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Details(int id)
+        {
+            var vaga = _service.FindById(id);
+            if (vaga == null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Vaga não encontrada" });
+            }
+            return View(vaga);
+        }
+
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
     }
 }

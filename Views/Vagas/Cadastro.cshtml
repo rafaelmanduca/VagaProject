@@ -1,45 +1,26 @@
-﻿@using Estacionamento.Models
-@model VagaEstacionamento
+﻿@model Estacionamento.Models.VagaEstacionamento
 
-@{
-    ViewData["Title"] = "Cadastro de Vaga";
-}
+<h1>Cadastro de Vaga</h1>
 
-<div class="text-center">
-    <h1 class="display-4">Cadastro da Vaga #@Model.NumeroVaga</h1>
-</div>
+<form asp-action="Cadastro" method="post">
+    <div class="form-group">
+        <label>Número da Vaga</label>
+        <select asp-for="NumeroVaga" class="form-control">
+            @foreach (var numero in ViewBag.NumerosDisponiveis)
+            {
+                <option value="@numero">@numero</option>
+            }
+        </select>
+    </div>
 
-<div class="container mt-5">
-    <form asp-action="Cadastro" method="post">
-        <!-- Campo Tipo -->
-        <div class="form-group mb-3">
-            <label for="Tipo">Tipo de Vaga</label>
-            <select asp-for="Tipo" class="form-control">
-                <option value="Idoso">Idoso</option>
-                <option value="Cadeirante">Cadeirante</option>
-                <option value="Comum">Comum</option>
-            </select>
+    <div class="form-group">
+        <label>Tipo de Vaga</label>
+        <select asp-for="Tipo" class="form-control">
+            <option value="Idoso">Idoso</option>
+            <option value="Cadeirante">Cadeirante</option>
+            <option value="Comum">Comum</option>
+        </select>
+    </div>
 
-        </div>
-
-        <!-- Campo Ocupação -->
-        <div class="form-group mb-3">
-            <label for="Ocupacao">Data e Hora de Ocupação</label>
-            <input type="datetime-local" class="form-control" id="Ocupacao" name="Ocupacao" value="@Model.Ocupacao.ToString("yyyy-MM-ddTHH:mm")" />
-        </div>
-
-        <!-- Campo Liberação -->
-        <div class="form-group mb-3">
-            <label for="Liberacao">Data e Hora de Liberação</label>
-            <input type="datetime-local" class="form-control" id="Liberacao" name="Liberacao" value="@Model.Liberacao.ToString("yyyy-MM-ddTHH:mm")" />
-        </div>
-
-        <!-- Campo Status -->
-        <div class="form-group mb-3">
-            <label for="Status">Status</label>
-            <input type="checkbox" class="form-check-input" id="Status" name="Status" @(Model.Status ? "checked" : "") />
-        </div>
-
-        <button type="submit" class="btn btn-primary">Cadastrar</button>
-    </form>
-</div>
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+</form>
