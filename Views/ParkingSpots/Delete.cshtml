@@ -1,0 +1,18 @@
+﻿@model Parking.Models.ParkingSpot
+
+@{
+    ViewData["Title"] = "Delete Parking Spot";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Você tem certeza que deseja deletar esse registro? #@Model.SpotNumber?</h1>
+    <p>Esssa ação não poderá ser desfeita.</p>
+
+    <form asp-action="DeleteConfirm" method="post">
+        <input type="hidden" name="id" value="@Model.Id" />
+
+        <button type="submit" class="btn btn-danger">Deletar</button>
+        <a href="@Url.Action("Index", "ParkingSpots")" class="btn btn-secondary">Cancelar</a>
+    </form>
+
+</div>

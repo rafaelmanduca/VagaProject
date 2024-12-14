@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Estacionamento.Migrations
+namespace Parking.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration
@@ -16,21 +16,21 @@ namespace Estacionamento.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Vagas",
+                name: "ParkingSpots",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    NumeroVaga = table.Column<int>(type: "int", nullable: false),
-                    Tipo = table.Column<string>(type: "longtext", nullable: false)
+                    SpotNumber = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Status = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    Ocupacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Liberacao = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    Occupation = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Release = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Vagas", x => x.Id);
+                    table.PrimaryKey("PK_ParkingSpots", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
         }
@@ -39,7 +39,7 @@ namespace Estacionamento.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Vagas");
+                name: "ParkingSpots");
         }
     }
 }

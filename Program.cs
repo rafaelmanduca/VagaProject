@@ -1,25 +1,25 @@
-using Estacionamento.Data;
-using Estacionamento.Services;
+using Parking.Data;
+using Parking.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped<VagaService>();
+builder.Services.AddScoped<ParkingSpotService>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<EstacionamentoContext>(options =>
+builder.Services.AddDbContext<ParkingContext>(options =>
 {
     options.UseMySql(
         builder
             .Configuration
-            .GetConnectionString("EstacionamentoContext"),
+            .GetConnectionString("ParkingContext"),
         ServerVersion
         .AutoDetect(
             builder
                 .Configuration
-                .GetConnectionString("EstacionamentoContext")
-            ) 
+                .GetConnectionString("ParkingContext")
+            )
         );
 });
 
@@ -29,7 +29,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Vaga/Error");
+    app.UseExceptionHandler("/ParkingSpot/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -43,6 +43,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Vagas}/{action=Index}/{id?}");
+    pattern: "{controller=ParkingSpots}/{action=Index}/{id?}");
 
 app.Run();

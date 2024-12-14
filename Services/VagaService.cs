@@ -1,72 +1,68 @@
-﻿using Estacionamento.Models;
-using Estacionamento.Data;
+﻿using Parking.Models;
+using Parking.Data;
 
-namespace Estacionamento.Services
+namespace Parking.Services
 {
-    public class VagaService
+    public class ParkingSpotService
     {
-        private readonly EstacionamentoContext _context;
+        private readonly ParkingContext _context;
 
-        public VagaService(EstacionamentoContext context)
+        public ParkingSpotService(ParkingContext context)
         {
             _context = context;
         }
 
-        public List<VagaEstacionamento> FindAll()
+        public List<ParkingSpot> FindAll()
         {
-            return _context.Vagas.ToList();
+            return _context.ParkingSpots.ToList();
         }
 
-        public void Add(VagaEstacionamento vaga)
+        public void Add(ParkingSpot parkingSpot)
         {
-            _context.Vagas.Add(vaga);
+            _context.ParkingSpots.Add(parkingSpot);
             _context.SaveChanges();
         }
 
-        public void Insert(VagaEstacionamento vaga)
+        public void Insert(ParkingSpot parkingSpot)
         {
-            _context.Vagas.Add(vaga); // Adiciona a nova vaga
-            _context.SaveChanges(); // Salva as alterações no banco de dados
+            _context.ParkingSpots.Add(parkingSpot);
+            _context.SaveChanges(); 
         }
 
-        public void Remove(VagaEstacionamento vaga)
+        public void Remove(ParkingSpot parkingSpot)
         {
             try
             {
-                _context.Vagas.Remove(vaga);
+                _context.ParkingSpots.Remove(parkingSpot);
                 _context.SaveChanges();
             }
             catch (Exception ex)
             {
-                // Opcional: logar o erro para depuração
-                throw new Exception("Erro ao remover a vaga: " + ex.Message);
+               
+                throw new Exception("Erro ao deletar vaga: " + ex.Message);
             }
         }
 
-        public VagaEstacionamento FindById(int id)
+        public ParkingSpot FindById(int id)
         {
-            return _context.Vagas.FirstOrDefault(v => v.Id == id);
+            return _context.ParkingSpots.FirstOrDefault(v => v.Id == id);
         }
 
-        public void Update(VagaEstacionamento vaga)
+        public void Update(ParkingSpot parkingSpot)
         {
-            // Verifica se a vaga existe
-            var vagaExistente = _context.Vagas.FirstOrDefault(v => v.Id == vaga.Id);
-            if (vagaExistente != null)
+            
+            var existingSpot = _context.ParkingSpots.FirstOrDefault(v => v.Id == parkingSpot.Id);
+            if (existingSpot != null)
             {
-                // Atualiza os dados da vaga
-                vagaExistente.Tipo = vaga.Tipo;
-                vagaExistente.Ocupacao = vaga.Ocupacao;
-                vagaExistente.Liberacao = vaga.Liberacao;
-                vagaExistente.Status = vaga.Status;
+              
+                existingSpot.Type = parkingSpot.Type;
+                existingSpot.Occupation = parkingSpot.Occupation;
+                existingSpot.Release = parkingSpot.Release;
+                existingSpot.Status = parkingSpot.Status;
 
-                // Salva as alterações no banco de dados
+                
                 _context.SaveChanges();
             }
         }
-
-
-
-
     }
 }

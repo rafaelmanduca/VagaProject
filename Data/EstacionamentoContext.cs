@@ -1,24 +1,16 @@
-﻿using Estacionamento.Models;
+﻿using Parking.Models;
 using Microsoft.EntityFrameworkCore;
-using Vaga.Controllers;
+using Parking.Controllers;
 
-namespace Estacionamento.Data
+namespace Parking.Data
 {
-    public class EstacionamentoContext : DbContext
+    public class ParkingContext : DbContext
     {
-        public EstacionamentoContext(DbContextOptions<EstacionamentoContext> options) : base(options)
+        public ParkingContext(DbContextOptions<ParkingContext> options) : base(options)
         {
 
         }
 
-        public DbSet<VagaEstacionamento> Vagas { get; set; }
-
-
-       
+        public DbSet<ParkingSpot> ParkingSpots { get; set; }
     }
-
-
-
-    
-
 }

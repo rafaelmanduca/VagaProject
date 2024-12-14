@@ -1,50 +1,47 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Estacionamento.Models
+namespace Parking.Models
 {
-    public class VagaEstacionamento
+    public class ParkingSpot
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "O número da vaga é obrigatório.")]
-        public int NumeroVaga { get; set; }
+        [Required(ErrorMessage = "A vaga já esta ocupada.")]
+        [Display(Name = "Número da Vaga")]
+        public int SpotNumber { get; set; }
 
-        [Required(ErrorMessage = "O tipo de vaga é obrigatório.")]
-        public string Tipo { get; set; }
+        [Required(ErrorMessage = "é necessario selecionar um tipo.")]
+        [Display(Name = "Tipo de Vaga")]
+        public string Type { get; set; }
 
-        public Boolean Status { get; set; }
+        [Display(Name = "Status")]
+        public bool Status { get; set; }
 
-        public DateTime Ocupacao { get; set; }
+        [Display(Name = "Data de Ocupação")]
+        public DateTime Occupation { get; set; }
 
-        public DateTime Liberacao { get; set; }
+        [Display(Name = "Data de Liberação")]
+        public DateTime Release { get; set; }
 
-
-
-        public VagaEstacionamento() { }
-
-        public VagaEstacionamento(int id,int numeroVaga)
-        {
-            Id = id;
-            NumeroVaga = numeroVaga;
-        }
-
-        public VagaEstacionamento(int id, int numeroVaga, string tipo, bool status, DateTime ocupacao, DateTime liberacao)
-        {
-            Id = id;
-            NumeroVaga = numeroVaga;
-            Tipo = tipo;
-            Status = status;
-            Ocupacao = ocupacao;
-            Liberacao = liberacao;
-        }
+        
+        public ParkingSpot() { }
 
        
+        public ParkingSpot(int id, int spotNumber)
+        {
+            Id = id;
+            SpotNumber = spotNumber;
+        }
 
+
+        public ParkingSpot(int id, int spotNumber, string type, bool status, DateTime occupation, DateTime release)
+        {
+            Id = id;
+            SpotNumber = spotNumber;
+            Type = type;
+            Status = status;
+            Occupation = occupation;
+            Release = release;
+        }
     }
-
-
-
-   
-  
-
 }

@@ -1,17 +1,17 @@
-using Estacionamento.Data;
-using Estacionamento.Models;
-using Estacionamento.Services;
+using Parking.Data;
+using Parking.Models;
+using Parking.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace Vaga.Controllers
+namespace Parking.Controllers
 {
-    public class VagasController : Controller
+    public class ParkingSpotsController : Controller
     {
-        private readonly ILogger<VagasController> _logger;
-        private readonly VagaService _service;
+        private readonly ILogger<ParkingSpotsController> _logger;
+        private readonly ParkingSpotService _service;
 
-        public VagasController(ILogger<VagasController> logger, VagaService service)
+        public ParkingSpotsController(ILogger<ParkingSpotsController> logger, ParkingSpotService service)
         {
             _logger = logger;
             _service = service;
@@ -19,85 +19,88 @@ namespace Vaga.Controllers
 
         public IActionResult Index()
         {
-            List<VagaEstacionamento> vagas = _service.FindAll();
-            if (vagas == null || !vagas.Any())
+            List<ParkingSpot> parkingSpots = _service.FindAll();
+            if (parkingSpots == null || !parkingSpots.Any())
             {
-                ViewBag.Mensagem = "Nenhuma vaga cadastrada.";
+                ViewBag.Message = "Nenhuma vaga encontrada.";
             }
-            return View(vagas);
+            return View(parkingSpots);
+        }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
         }
 
 
-        
-
         [HttpPost]
-        public IActionResult Cadastro(VagaEstacionamento vaga)
+        public IActionResult Register(ParkingSpot parkingSpot)
         {
             if (ModelState.IsValid)
             {
-                _service.Add(vaga);
+                _service.Add(parkingSpot);
                 return RedirectToAction(nameof(Index));
             }
-            var vagasExistentes = _service.FindAll().Select(v => v.NumeroVaga).ToList();
-            ViewBag.NumerosDisponiveis = Enumerable.Range(1, 20).Except(vagasExistentes).ToList();
-            return View(vaga);
+            var existingSpots = _service.FindAll().Select(v => v.SpotNumber).ToList();
+            ViewBag.AvailableNumbers = Enumerable.Range(1, 20).Except(existingSpots).ToList();
+            return View(parkingSpot);
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var vaga = _service.FindById(id);
-            if (vaga == null)
+            var parkingSpot = _service.FindById(id);
+            if (parkingSpot == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Vaga não encontrada" });
             }
-            return View(vaga);
+            return View(parkingSpot);
         }
 
         [HttpPost]
-        public IActionResult Edit(VagaEstacionamento vaga)
+        public IActionResult Edit(ParkingSpot parkingSpot)
         {
             if (ModelState.IsValid)
             {
-                _service.Update(vaga);
+                _service.Update(parkingSpot);
                 return RedirectToAction(nameof(Index));
             }
-            return View(vaga);
+            return View(parkingSpot);
         }
-
 
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var vaga = _service.FindById(id);
-            if (vaga == null)
+            var parkingSpot = _service.FindById(id);
+            if (parkingSpot == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Vaga não encontrada" });
             }
-            return View(vaga);
+            return View(parkingSpot);
         }
 
         [HttpPost]
         public IActionResult DeleteConfirm(int id)
         {
-            var vaga = _service.FindById(id);
-            if (vaga == null)
+            var parkingSpot = _service.FindById(id);
+            if (parkingSpot == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Vaga não encontrada" });
             }
 
-            _service.Remove(vaga);
+            _service.Remove(parkingSpot);
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Details(int id)
         {
-            var vaga = _service.FindById(id);
-            if (vaga == null)
+            var parkingSpot = _service.FindById(id);
+            if (parkingSpot == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Vaga não encontrada" });
             }
-            return View(vaga);
+            return View(parkingSpot);
         }
 
         public IActionResult Error(string message)

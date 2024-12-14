@@ -1,0 +1,36 @@
+﻿@model Parking.Models.ParkingSpot
+
+@{
+    ViewData["Title"] = "Ediçao de vaga #@Model.SpotNumber";
+}
+
+<h1>Ediçao de vaga #@Model.SpotNumber</h1>
+
+<form asp-action="Edit" method="post">
+    <div class="form-group mb-3">
+        <label for="Type">Tipo de vaga</label>
+        <select asp-for="Type" class="form-control">
+            <option value="Senior">Idoso</option>
+            <option value="Disabled">Cadeirante</option>
+            <option value="Standard">Comum</option>
+        </select>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="Occupation">Periodo de ocupação</label>
+        <input type="datetime-local" class="form-control" asp-for="Occupation" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="Release">Hora de Saída</label>
+        <input type="datetime-local" class="form-control" asp-for="Release" />
+    </div>
+
+    <div class="form-check mb-3">
+        <input type="checkbox" class="form-check-input" asp-for="Status" />
+        <label class="form-check-label" for="Status">Status (ocupado)</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a href="@Url.Action("Index", "ParkingSpots")" class="btn btn-secondary">Cancel</a>
+</form>

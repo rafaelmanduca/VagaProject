@@ -1,0 +1,26 @@
+﻿@model Parking.Models.ParkingSpot
+
+<h1>Parking Spot Registration</h1>
+
+<form asp-action="Cadastro" method="post">
+    <div class="form-group">
+        <label>@Html.DisplayNameFor(model => model.SpotNumber)</label>
+        <select asp-for="SpotNumber" class="form-control">
+            @foreach (var number in ViewBag.AvailableNumbers)
+            {
+                <option value="@number">@number</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>@Html.DisplayNameFor(model => model.Type)</label>
+        <select asp-for="Type" class="form-control">
+            <option value="Senior">Idoso</option>
+            <option value="Disabled">Disabled</option>
+            <option value="Common">Common</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>

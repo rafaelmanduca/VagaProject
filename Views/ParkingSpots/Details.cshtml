@@ -1,0 +1,28 @@
+﻿@model Parking.Models.ParkingSpot
+
+@{
+    ViewData["Title"] = "Detalhes da Vaga";
+}
+
+<h1>Detalhe da  #@Model.SpotNumber</h1>
+
+<table class="table">
+    <tr>
+        <th>Tipo</th>
+        <td>@Model.Type</td>
+    </tr>
+    <tr>
+        <th>Status</th>
+        <td>@(Model.Status ? "Ocupado" : "Disponivel")</td>
+    </tr>
+    <tr>
+        <th>Ocupação</th>
+        <td>@Model.Occupation</td>
+    </tr>
+    <tr>
+        <th>Saída</th>
+        <td>@Model.Release</td>
+    </tr>
+</table>
+
+<a href="@Url.Action("Index", "ParkingSpots")" class="btn btn-secondary">Back</a>
